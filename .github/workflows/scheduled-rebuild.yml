@@ -1,0 +1,24 @@
+name: Scheduled rebuild (content queue)
+
+# This is what makes scheduled posts go live automatically.
+# Astro builds the site once, as a snapshot — a post dated for tomorrow
+# won't appear until the site rebuilds *after* that date arrives.
+# This workflow triggers that rebuild once a day, every day.
+
+on:
+  schedule:
+    # Runs daily at 06:00 UTC (~7am Lagos time). Adjust the cron if you want a different time.
+    - cron: '0 6 * * *'
+  workflow_dispatch: {}   # lets you trigger it manually from the Actions tab too
+
+jobs:
+  trigger-rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call Cloudflare Pages deploy hook
+        run: |
+          if [ -z "${{ secrets.CF_DEPLOY_HOOK }}" ]; then
+            echo "CF_DEPLOY_HOOK secret is not set — see setup instructions in the repo README."
+            exit 1
+          fi
+          curl -X POST "${{ secrets.CF_DEPLOY_HOOK }}"
