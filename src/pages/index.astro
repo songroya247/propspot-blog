@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const now = new Date();
+const posts = (await getCollection('blog', ({ data }) => !data.draft && data.publishDate <= now))
+  .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
+---
+<BaseLayout title="Journal">
+  <main class="wrap">
+    <p class="eyebrow">✦ The PropSpot Journal</p>
+    <h1 class="page-title">Guides for finding home.</h1>
+    <p class="page-lede">Practical advice on renting, buying, and settling into a neighborhood in Nigeria — written to save you a bad deal, not to fill space.</p>
+
+    <div class="post-grid">
+      {posts.map(post => (
+        <a class="post-card" href={`/blog/${post.slug}/`}>
+          {post.data.coverImage && (
+            <div class="post-card-img"><img src={post.data.coverImage} alt={post.data.title} loading="lazy" /></div>
+          )}
+          <div class="post-card-body">
+            {post.data.tags.length > 0 && (
+              <div class="post-tags">
+                {post.data.tags.map(tag => <span class="post-tag">{tag}</span>)}
+              </div>
+            )}
+            <h2 class="post-card-title">{post.data.title}</h2>
+            <p class="post-card-excerpt">{post.data.excerpt}</p>
+            <p class="post-card-meta">{post.data.publishDate.toLocaleDateString('en-NG', { year:'numeric', month:'short', day:'numeric' })} · {post.data.author}</p>
+          </div>
+        </a>
+      ))}
+    </div>
+
+    {posts.length === 0 && (
+      <p style="margin-top:40px;color:hsl(var(--muted-foreground));font-size:14px;">No posts published yet — check back soon.</p>
+    )}
+  </main>
+</BaseLayout>
