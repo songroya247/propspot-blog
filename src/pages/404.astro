@@ -1,0 +1,16 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Page not found" description="This page doesn't exist.">
+  <main class="wrap" style="text-align:center; padding-top:80px;">
+    <p class="eyebrow" style="justify-content:center; display:flex;">✦ 404</p>
+    <h1 class="page-title">This page wandered off.</h1>
+    <p class="page-lede" style="margin-left:auto; margin-right:auto;">
+      The post or page you're looking for doesn't exist, or may have moved.
+    </p>
+    <div style="margin-top:32px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+      <a href="/" style="border:none;border-radius:100px;background:hsl(var(--foreground));color:hsl(var(--card));padding:13px 24px;font-size:13px;font-weight:600;text-decoration:none;">Back to the Journal</a>
+      <a href="https://propspot.ultimateedge.info" style="border:1px solid hsl(var(--border));border-radius:100px;background:hsl(var(--card));color:hsl(var(--foreground));padding:13px 24px;font-size:13px;font-weight:600;text-decoration:none;">Browse listings</a>
+    </div>
+  </main>
+</BaseLayout>
