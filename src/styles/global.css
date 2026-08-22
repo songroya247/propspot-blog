@@ -106,6 +106,14 @@ img{ max-width:100%; display:block; }
   color:hsl(var(--muted-foreground)); font-style:italic;
 }
 .prose code{ background:hsl(var(--muted)); padding:2px 6px; border-radius:5px; font-family:var(--font-mono); font-size:14px; }
+.prose .callout{
+  margin:22px 0; padding:16px 18px; border-radius:calc(var(--radius) - 2px); font-size:14px; line-height:1.6;
+}
+.prose .callout.tip{ background:hsl(var(--secondary) / .6); border:1px solid hsl(var(--primary) / .25); }
+.prose .callout.warn{ background:hsl(var(--accent) / .18); border:1px solid hsl(var(--accent) / .5); }
+.prose table{ width:100%; border-collapse:collapse; margin:22px 0; font-size:14px; }
+.prose th, .prose td{ border:1px solid hsl(var(--border)); padding:10px 12px; text-align:left; }
+.prose th{ background:hsl(var(--secondary)); font-weight:600; }
 
 .cta-strip{
   margin-top:56px; border-radius:calc(var(--radius) + 8px); background:hsl(var(--foreground));
@@ -121,4 +129,4 @@ img{ max-width:100%; display:block; }
 .site-footer{
   border-top:1px solid hsl(var(--border)); margin-top:60px; padding:24px 20px;
   text-align:center; font-size:12px; color:hsl(var(--muted-foreground));
-  }
+}
