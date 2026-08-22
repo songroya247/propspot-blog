@@ -13,22 +13,30 @@
   --primary-foreground: 270 32% 97%; --secondary: 270 43% 91%; --muted: 269 31% 92%;
   --muted-foreground: 264 15% 47%; --accent: 42 88% 58%; --accent-foreground: 264 38% 18%;
   --destructive: 2 64% 48%; --radius: 1rem; --shadow-sm: 0 3px 12px rgba(73,46,111,.08);
+  --shadow-md: 0 14px 34px rgba(73,46,111,.16);
 }
 *{box-sizing:border-box;}
 body{margin:0; background:hsl(var(--background)); color:hsl(var(--foreground)); font-family:'DM Sans',sans-serif;}
 h1,h2{font-family:'Fraunces',serif; margin:0;}
 .mono{font-family:'Space Mono',monospace;}
 button,input,select,textarea{font-family:inherit;}
-.wrap{max-width:760px; margin:0 auto; padding:24px 18px 80px;}
-.topbar{display:flex; align-items:center; justify-content:space-between; margin-bottom:24px;}
+.wrap{max-width:800px; margin:0 auto; padding:24px 18px 80px;}
+.topbar{display:flex; align-items:center; justify-content:space-between; margin-bottom:20px;}
 .brand{display:flex; align-items:center; gap:10px;}
 .brand-mark{display:grid; place-items:center; width:34px; height:34px; border-radius:11px; background:hsl(var(--primary)); color:hsl(var(--primary-foreground)); font-weight:700;}
 .brand-name{font-family:'Fraunces',serif; font-size:19px; font-weight:600;}
 .brand-tag{display:block; font-family:'Space Mono',monospace; font-size:9px; text-transform:uppercase; letter-spacing:.14em; color:hsl(var(--muted-foreground));}
 .signout{border:1px solid hsl(var(--border)); background:hsl(var(--card)); border-radius:100px; padding:8px 14px; font-size:12px; font-weight:600; cursor:pointer;}
 
+.tabs{display:flex; gap:8px; margin-bottom:18px; flex-wrap:wrap;}
+.tab-btn{border:1px solid hsl(var(--border)); background:hsl(var(--card)); color:hsl(var(--muted-foreground)); border-radius:100px; padding:8px 16px; font-size:13px; font-weight:600; cursor:pointer;}
+.tab-btn.active{background:hsl(var(--foreground)); color:hsl(var(--card)); border-color:hsl(var(--foreground));}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+
 .section{background:hsl(var(--card)); border:1px solid hsl(var(--card-border)); border-radius:calc(var(--radius)+4px); padding:20px; margin-bottom:20px; box-shadow:var(--shadow-sm);}
-.section h2{font-size:19px; margin-bottom:14px;}
+.section h2{font-size:19px; margin-bottom:6px;}
+.hint{font-size:12px; color:hsl(var(--muted-foreground)); margin:4px 0 14px; line-height:1.5;}
 .field{margin-bottom:12px;}
 .field label{display:block; font-size:12px; font-weight:600; margin-bottom:6px; color:hsl(var(--muted-foreground));}
 .field input, .field textarea, .field select{
@@ -38,30 +46,50 @@ button,input,select,textarea{font-family:inherit;}
 .field input:focus, .field textarea:focus{border-color:hsl(var(--primary));}
 .field textarea{resize:vertical; font-family:'Space Mono',monospace; font-size:13px; line-height:1.6;}
 .two-col{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
-.hint{font-size:11px; color:hsl(var(--muted-foreground)); margin-top:6px; line-height:1.5;}
-.btn-primary{
-  border:none; border-radius:calc(var(--radius) - 4px); background:hsl(var(--foreground)); color:hsl(var(--card));
-  padding:13px 20px; font-size:14px; font-weight:600; cursor:pointer;
-}
+.btn-primary{border:none; border-radius:calc(var(--radius) - 4px); background:hsl(var(--foreground)); color:hsl(var(--card)); padding:13px 20px; font-size:14px; font-weight:600; cursor:pointer;}
 .btn-primary:hover{background:hsl(var(--primary));}
-.btn-secondary{
-  border:1px solid hsl(var(--border)); background:hsl(var(--card)); border-radius:calc(var(--radius) - 4px);
-  padding:11px 18px; font-size:13px; font-weight:600; cursor:pointer;
-}
+.btn-primary:disabled{background:hsl(var(--border)); color:hsl(var(--muted-foreground)); cursor:not-allowed;}
+.btn-secondary{border:1px solid hsl(var(--border)); background:hsl(var(--card)); border-radius:calc(var(--radius) - 4px); padding:11px 18px; font-size:13px; font-weight:600; cursor:pointer;}
+.btn-danger{border:1px solid hsl(var(--destructive)); background:hsl(var(--destructive) / .08); color:hsl(var(--destructive)); border-radius:calc(var(--radius) - 4px); padding:11px 18px; font-size:13px; font-weight:600; cursor:pointer;}
 .btn-row{display:flex; gap:8px; flex-wrap:wrap;}
 .status-msg{font-size:13px; margin-top:12px; padding:10px 14px; border-radius:calc(var(--radius) - 4px); display:none;}
 .status-msg.ok{display:block; background:hsl(var(--accent) / .25); color:hsl(var(--accent-foreground));}
 .status-msg.err{display:block; background:hsl(var(--destructive) / .12); color:hsl(var(--destructive));}
 
-.post-row{display:flex; align-items:center; gap:12px; padding:12px 0; border-bottom:1px solid hsl(var(--border));}
+.post-row{display:flex; align-items:center; gap:12px; padding:12px 0; border-bottom:1px solid hsl(var(--border)); cursor:pointer;}
 .post-row:last-child{border-bottom:none;}
+.post-row:hover{background:hsl(var(--muted) / .4);}
 .post-row .info{flex:1; min-width:0;}
 .post-row .title{font-size:14px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
 .post-row .meta{font-size:12px; color:hsl(var(--muted-foreground)); margin-top:2px;}
-.draft-tag{background:hsl(var(--secondary)); color:hsl(var(--muted-foreground)); border-radius:100px; padding:3px 9px; font-size:10px; font-weight:600; margin-left:8px;}
+.pill{background:hsl(var(--secondary)); color:hsl(var(--secondary-foreground)); border-radius:100px; padding:3px 9px; font-size:10px; font-weight:600; margin-left:8px;}
+.pill.scheduled{background:hsl(var(--accent) / .3); color:hsl(var(--accent-foreground));}
 .icon-btn{border:none; background:none; font-size:16px; cursor:pointer; padding:6px; color:hsl(var(--muted-foreground));}
 .icon-btn.del{color:hsl(var(--destructive));}
 .empty-list{text-align:center; padding:30px; color:hsl(var(--muted-foreground)); font-size:13px;}
+
+.back-link{display:inline-block; margin-bottom:14px; font-size:13px; font-weight:600; color:hsl(var(--primary)); cursor:pointer;}
+
+.fmt-toolbar{display:flex; flex-wrap:wrap; gap:6px; margin-bottom:6px;}
+.fmt-btn{border:1px solid hsl(var(--border)); background:hsl(var(--card)); border-radius:7px; padding:6px 10px; font-size:11px; font-weight:600; cursor:pointer; color:hsl(var(--foreground));}
+.fmt-btn:hover{border-color:hsl(var(--primary)); color:hsl(var(--primary));}
+
+.img-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(90px,1fr)); gap:10px; margin-top:14px;}
+.img-grid .thumb{border:1px solid hsl(var(--border)); border-radius:10px; overflow:hidden; cursor:pointer; aspect-ratio:1; background:hsl(var(--muted));}
+.img-grid .thumb img{width:100%; height:100%; object-fit:cover; display:block;}
+code.snippet{display:block; background:hsl(var(--background)); border:1px solid hsl(var(--border)); border-radius:8px; padding:10px 12px; font-size:12px; font-family:'Space Mono',monospace; white-space:pre-wrap; word-break:break-all; margin:8px 0;}
+
+.preview-overlay{display:none; position:fixed; inset:0; z-index:50; background:hsl(var(--foreground) / .5); backdrop-filter:blur(2px); align-items:center; justify-content:center; padding:0;}
+.preview-overlay.open{display:flex;}
+.preview-box{background:#fff; width:100%; height:100%; max-width:900px; max-height:100dvh; display:flex; flex-direction:column;}
+@media(min-width:700px){ .preview-box{ height:92dvh; border-radius:16px; overflow:hidden; } }
+.preview-head{display:flex; align-items:center; justify-content:space-between; padding:12px 16px; border-bottom:1px solid hsl(var(--border)); background:hsl(var(--card));}
+.preview-head span{font-size:13px; font-weight:600;}
+.preview-frame{flex:1; border:none; width:100%;}
+
+.toast{position:fixed; left:50%; bottom:20px; transform:translateX(-50%); z-index:60; display:none; align-items:center; gap:10px; border-radius:100px; background:hsl(var(--foreground)); color:hsl(var(--card)); padding:12px 18px; font-size:13px; font-weight:500; box-shadow:var(--shadow-md);}
+.toast.show{display:flex;}
+.toast.error{background:hsl(var(--destructive));}
 
 #loginScreen{max-width:380px; margin:60px auto; text-align:center;}
 #loginScreen h1{font-size:30px; margin-bottom:8px;}
@@ -80,10 +108,10 @@ button,input,select,textarea{font-family:inherit;}
   </div>
 
   <div id="loginScreen">
-    <h1>Connect GitHub</h1>
-    <p>This dashboard writes Markdown files directly into your <span class="mono">propspot-blog</span> repo using the GitHub API. You'll need a personal access token with <span class="mono">repo</span> access — generate one at github.com → Settings → Developer settings → Personal access tokens.</p>
-    <div class="field"><label>GitHub username or org</label><input id="ghOwner" placeholder="e.g. solarphem"></div>
-    <div class="field"><label>Repository name</label><input id="ghRepo" placeholder="e.g. propspot-blog"></div>
+    <h1>Sign in</h1>
+    <p>This dashboard writes Markdown files directly into your <span class="mono">propspot-blog</span> repo using the GitHub API. You'll need a personal access token with <span class="mono">repo</span> access.</p>
+    <div class="field"><label>GitHub username or org</label><input id="ghOwner" placeholder="e.g. songroya247"></div>
+    <div class="field"><label>Repository name</label><input id="ghRepo" placeholder="propspot-blog"></div>
     <div class="field"><label>Branch</label><input id="ghBranch" placeholder="main" value="main"></div>
     <div class="field"><label>Personal access token</label><input id="ghToken" type="password" placeholder="ghp_..."></div>
     <button class="btn-primary" id="connectBtn" style="width:100%;">Connect</button>
@@ -91,100 +119,152 @@ button,input,select,textarea{font-family:inherit;}
   </div>
 
   <div id="appScreen" style="display:none;">
-    <div class="section">
-      <h2 id="formTitle">New post</h2>
-      <div class="field"><label>Title</label><input id="f_title" placeholder="e.g. Living in Bodija: What to Know"></div>
-      <div class="field"><label>Excerpt</label><textarea id="f_excerpt" rows="2" placeholder="One or two sentences — shows on the post card and in search results"></textarea></div>
-      <div class="two-col">
-        <div class="field"><label>Publish date</label><input id="f_date" type="date"></div>
-        <div class="field"><label>Author</label><input id="f_author" value="PropSpot Team"></div>
-      </div>
-      <div class="two-col">
-        <div class="field"><label>Tags (comma-separated)</label><input id="f_tags" placeholder="Guides, Ibadan"></div>
-        <div class="field"><label>Status</label>
-          <select id="f_draft"><option value="false">Published</option><option value="true">Draft</option></select>
-        </div>
-      </div>
-      <div class="field"><label>Cover image URL</label><input id="f_cover" placeholder="https://..."></div>
-      <div class="field">
-        <label>Content (Markdown)</label>
-        <textarea id="f_content" rows="14" placeholder="## A heading&#10;&#10;Write your post here using Markdown — ## for headings, - for lists, [text](url) for links."></textarea>
-        <p class="hint">Slug and filename are generated automatically from the title.</p>
-      </div>
-      <div class="btn-row">
-        <button class="btn-primary" id="saveBtn">Publish post</button>
-        <button class="btn-secondary" id="cancelEditBtn" style="display:none;">Cancel edit</button>
-      </div>
-      <p class="status-msg" id="formStatus"></p>
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="posts">Posts</button>
+      <button class="tab-btn" data-tab="scheduled">Scheduled</button>
+      <button class="tab-btn" data-tab="images">Images</button>
     </div>
 
-    <div class="section">
-      <h2>All posts <span class="mono" id="postCount" style="font-size:13px; color:hsl(var(--muted-foreground));"></span></h2>
-      <div id="postsList"><div class="empty-list">Loading…</div></div>
+    <!-- POSTS TAB -->
+    <div class="tab-panel active" id="tab-posts">
+      <div id="postsListView">
+        <div class="section">
+          <h2>Published posts</h2>
+          <p class="hint">Live on the site now — publishDate is today or earlier, and not marked draft.</p>
+          <div class="btn-row">
+            <button class="btn-secondary" id="refreshPostsBtn">Refresh</button>
+            <button class="btn-primary" id="newPostBtn">+ New post</button>
+            <button class="btn-secondary" id="uploadPostBtn">Upload .md file</button>
+          </div>
+          <input type="file" id="uploadPostFile" accept=".md,.txt" style="display:none;">
+          <div id="postsList" style="margin-top:14px;"><p class="empty-list">Not loaded yet.</p></div>
+        </div>
+      </div>
+      <div id="postEditorView" style="display:none;"></div>
+    </div>
+
+    <!-- SCHEDULED TAB -->
+    <div class="tab-panel" id="tab-scheduled">
+      <div id="scheduledListView">
+        <div class="section">
+          <h2>Scheduled &amp; drafts</h2>
+          <p class="hint">Future publishDate, or marked draft — these go live automatically once their date arrives and the site's daily rebuild runs.</p>
+          <div class="btn-row">
+            <button class="btn-secondary" id="refreshScheduledBtn">Refresh</button>
+            <button class="btn-primary" id="newScheduledBtn">+ New scheduled post</button>
+            <button class="btn-secondary" id="uploadScheduledBtn">Upload .md file</button>
+          </div>
+          <input type="file" id="uploadScheduledFile" accept=".md,.txt" style="display:none;">
+          <div id="scheduledList" style="margin-top:14px;"><p class="empty-list">Not loaded yet.</p></div>
+        </div>
+      </div>
+      <div id="scheduledEditorView" style="display:none;"></div>
+    </div>
+
+    <!-- IMAGES TAB -->
+    <div class="tab-panel" id="tab-images">
+      <div class="section">
+        <h2>Upload image</h2>
+        <p class="hint">Uploads to <span class="mono">public/images/</span> — available at <span class="mono">/images/filename</span> once the site rebuilds.</p>
+        <div class="field"><label>Choose image</label><input type="file" id="imageFileInput" accept="image/*"></div>
+        <div class="field"><label>File name (lowercase, hyphens)</label><input type="text" id="imageNameInput" placeholder="e.g. bodija-market-street.jpg"></div>
+        <button class="btn-primary" id="uploadImageBtn">Upload</button>
+        <p class="status-msg" id="uploadStatus"></p>
+        <div id="uploadResult" style="display:none;">
+          <label style="font-size:12px;font-weight:600;color:hsl(var(--muted-foreground));display:block;margin-top:12px;">Ready-to-paste Markdown snippet</label>
+          <code class="snippet" id="snippetOutput"></code>
+          <button class="btn-secondary" id="copySnippetBtn">Copy snippet</button>
+        </div>
+      </div>
+      <div class="section">
+        <h2>Existing images</h2>
+        <button class="btn-secondary" id="refreshImagesBtn">Refresh</button>
+        <div class="img-grid" id="imageGrid"></div>
+      </div>
     </div>
   </div>
 </div>
 
+<div class="preview-overlay" id="previewOverlay">
+  <div class="preview-box">
+    <div class="preview-head">
+      <span>Preview</span>
+      <button class="icon-btn" id="closePreviewBtn">✕</button>
+    </div>
+    <iframe class="preview-frame" id="previewFrame"></iframe>
+  </div>
+</div>
+
+<div class="toast" id="toast"><span id="toastMsg"></span></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" defer></script>
 <script>
 const $ = id => document.getElementById(id);
 let gh = { owner:'', repo:'', branch:'main', token:'' };
-let editingPath = null;
-let editingSha = null;
 
-function slugify(title){
-  return title.toLowerCase().trim()
-    .replace(/[^a-z0-9\s-]/g,'')
-    .replace(/\s+/g,'-')
-    .replace(/-+/g,'-');
+// ---------- Toast ----------
+function toast(msg, isError){
+  const t = $('toast');
+  $('toastMsg').textContent = msg;
+  t.className = 'toast show' + (isError ? ' error' : '');
+  clearTimeout(toast._timer);
+  toast._timer = setTimeout(() => { t.className = 'toast'; }, 3200);
 }
 
-function showStatus(el, msg, ok){
-  el.textContent = msg; el.className = 'status-msg ' + (ok ? 'ok' : 'err');
-}
-
-async function ghApi(path, options={}){
+// ---------- GitHub API helpers ----------
+async function ghRaw(path, opts={}){
   const res = await fetch(`https://api.github.com/repos/${gh.owner}/${gh.repo}${path}`, {
-    ...options,
-    headers: {
-      'Authorization': `Bearer ${gh.token}`,
-      'Accept': 'application/vnd.github+json',
-      ...(options.headers || {})
-    }
+    ...opts,
+    headers: { 'Authorization': `Bearer ${gh.token}`, 'Accept': 'application/vnd.github+json', ...(opts.headers||{}) }
   });
-  if(!res.ok){
-    const body = await res.json().catch(()=>({}));
-    throw new Error(body.message || `GitHub API error (${res.status})`);
-  }
-  return res.status === 204 ? null : res.json();
+  return res;
+}
+async function listDir(path){
+  const res = await ghRaw(`/contents/${path}?ref=${gh.branch}`);
+  if(!res.ok) return [];
+  return res.json();
+}
+async function getFile(path){
+  const res = await ghRaw(`/contents/${path}?ref=${gh.branch}`);
+  if(!res.ok) throw new Error(`Fetch failed (${res.status})`);
+  const data = await res.json();
+  return { content: b64DecodeUnicode(data.content.replace(/\n/g,'')), sha: data.sha };
+}
+async function putFile(path, contentStr, sha, message){
+  const body = { message: message || `Update ${path}`, content: b64EncodeUnicode(contentStr), branch: gh.branch };
+  if(sha) body.sha = sha;
+  const res = await ghRaw(`/contents/${path}`, { method:'PUT', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body) });
+  if(!res.ok){ const err = await res.json().catch(()=>({})); throw new Error(err.message || `Save failed (${res.status})`); }
+  return res.json();
+}
+async function deleteFile(path, sha, message){
+  const res = await ghRaw(`/contents/${path}`, { method:'DELETE', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ message: message || `Delete ${path}`, sha, branch: gh.branch }) });
+  if(!res.ok){ const err = await res.json().catch(()=>({})); throw new Error(err.message || `Delete failed (${res.status})`); }
+  return res.json();
+}
+async function putBinaryFile(path, base64Data, message){
+  const res = await ghRaw(`/contents/${path}`, { method:'PUT', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ message: message || `Upload ${path}`, content: base64Data, branch: gh.branch }) });
+  if(!res.ok){ const err = await res.json().catch(()=>({})); throw new Error(err.message || `Upload failed (${res.status})`); }
+  return res.json();
+}
+function b64EncodeUnicode(str){ return btoa(unescape(encodeURIComponent(str))); }
+function b64DecodeUnicode(str){ return decodeURIComponent(escape(atob(str))); }
+function fileToBase64(file){
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result.split(',')[1]);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
 }
 
-function b64EncodeUnicode(str){
-  return btoa(unescape(encodeURIComponent(str)));
+// ---------- Frontmatter parse/build (matches src/content/config.ts schema) ----------
+function slugify(title){
+  return title.toLowerCase().trim().replace(/[^a-z0-9\s-]/g,'').replace(/\s+/g,'-').replace(/-+/g,'-');
 }
-function b64DecodeUnicode(str){
-  return decodeURIComponent(escape(atob(str)));
-}
-
-function buildMarkdown(fields){
-  const tags = fields.tags.split(',').map(t=>t.trim()).filter(Boolean);
-  const frontmatter = [
-    '---',
-    `title: "${fields.title.replace(/"/g,'\\"')}"`,
-    `excerpt: "${fields.excerpt.replace(/"/g,'\\"')}"`,
-    `publishDate: ${fields.date}`,
-    `tags: [${tags.map(t=>`"${t}"`).join(', ')}]`,
-    fields.cover ? `coverImage: "${fields.cover}"` : null,
-    `author: "${fields.author}"`,
-    `draft: ${fields.draft}`,
-    '---',
-    ''
-  ].filter(Boolean).join('\n');
-  return frontmatter + '\n' + fields.content;
-}
-
 function parseFrontmatter(md){
-  const match = md.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
-  if(!match) return { data:{}, content: md };
+  const match = md.match(/^---\n([\s\S]*?)\n---\n?([\s\S]*)$/);
+  if(!match) return { data:{}, body: md };
   const data = {};
   match[1].split('\n').forEach(line => {
     const m = line.match(/^(\w+):\s*(.*)$/);
@@ -194,158 +274,54 @@ function parseFrontmatter(md){
     else if(val.startsWith('[') && val.endsWith(']')) val = val.slice(1,-1).split(',').map(s=>s.trim().replace(/^"|"$/g,'')).filter(Boolean);
     data[m[1]] = val;
   });
-  return { data, content: match[2] };
+  return { data, body: match[2] };
+}
+function buildFrontmatter(fields){
+  const tags = (fields.tags||[]).filter(Boolean);
+  return [
+    '---',
+    `title: "${(fields.title||'').replace(/"/g,'\\"')}"`,
+    `excerpt: "${(fields.excerpt||'').replace(/"/g,'\\"')}"`,
+    `publishDate: ${fields.publishDate}`,
+    `tags: [${tags.map(t=>`"${t}"`).join(', ')}]`,
+    fields.coverImage ? `coverImage: "${fields.coverImage}"` : null,
+    `author: "${fields.author || 'PropSpot Team'}"`,
+    `draft: ${!!fields.draft}`,
+    '---',
+    ''
+  ].filter(Boolean).join('\n');
 }
 
+// ---------- Auth ----------
 $('connectBtn').addEventListener('click', async () => {
   gh.owner = $('ghOwner').value.trim();
   gh.repo = $('ghRepo').value.trim();
   gh.branch = $('ghBranch').value.trim() || 'main';
   gh.token = $('ghToken').value.trim();
   if(!gh.owner || !gh.repo || !gh.token){
-    showStatus($('loginStatus'), 'Please fill in owner, repo, and token.', false); return;
+    showLoginStatus('Please fill in owner, repo, and token.', false); return;
   }
   try{
-    await ghApi('');
+    const res = await ghRaw('');
+    if(!res.ok) throw new Error(`Could not access repo (${res.status})`);
     localStorage.setItem('propspot_cms_gh', JSON.stringify(gh));
     showApp();
   }catch(err){
-    showStatus($('loginStatus'), 'Could not connect: ' + err.message, false);
+    showLoginStatus('Could not connect: ' + err.message, false);
   }
 });
-
+function showLoginStatus(msg, ok){
+  const el = $('loginStatus'); el.textContent = msg; el.className = 'status-msg ' + (ok?'ok':'err');
+}
 $('signOutBtn').addEventListener('click', () => {
   localStorage.removeItem('propspot_cms_gh');
   gh = { owner:'', repo:'', branch:'main', token:'' };
   $('loginScreen').style.display='block'; $('appScreen').style.display='none'; $('signOutBtn').style.display='none';
 });
-
 function showApp(){
   $('loginScreen').style.display='none'; $('appScreen').style.display='block'; $('signOutBtn').style.display='inline-block';
-  $('f_date').value = new Date().toISOString().slice(0,10);
-  loadPosts();
+  loadPosts(); loadScheduled();
 }
-
-function resetForm(){
-  ['f_title','f_excerpt','f_tags','f_cover','f_content'].forEach(id => $(id).value = '');
-  $('f_date').value = new Date().toISOString().slice(0,10);
-  $('f_author').value = 'PropSpot Team';
-  $('f_draft').value = 'false';
-  editingPath = null; editingSha = null;
-  $('formTitle').textContent = 'New post';
-  $('saveBtn').textContent = 'Publish post';
-  $('cancelEditBtn').style.display = 'none';
-}
-$('cancelEditBtn').addEventListener('click', resetForm);
-
-$('saveBtn').addEventListener('click', async () => {
-  const fields = {
-    title: $('f_title').value.trim(),
-    excerpt: $('f_excerpt').value.trim(),
-    date: $('f_date').value,
-    author: $('f_author').value.trim() || 'PropSpot Team',
-    tags: $('f_tags').value.trim(),
-    cover: $('f_cover').value.trim(),
-    draft: $('f_draft').value,
-    content: $('f_content').value,
-  };
-  if(!fields.title || !fields.excerpt || !fields.content){
-    showStatus($('formStatus'), 'Please fill in at least title, excerpt, and content.', false); return;
-  }
-  const slug = editingPath ? editingPath.split('/').pop().replace('.md','') : slugify(fields.title);
-  const path = `src/content/blog/${slug}.md`;
-  const markdown = buildMarkdown(fields);
-
-  try{
-    const body = {
-      message: editingPath ? `Update post: ${fields.title}` : `New post: ${fields.title}`,
-      content: b64EncodeUnicode(markdown),
-      branch: gh.branch,
-    };
-    if(editingSha) body.sha = editingSha;
-    await ghApi(`/contents/${path}`, { method:'PUT', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body) });
-    showStatus($('formStatus'), editingPath ? 'Post updated.' : 'Post published.', true);
-    resetForm();
-    loadPosts();
-  }catch(err){
-    showStatus($('formStatus'), 'Could not save: ' + err.message, false);
-  }
-});
-
-async function loadPosts(){
-  $('postsList').innerHTML = '<div class="empty-list">Loading…</div>';
-  try{
-    const files = await ghApi(`/contents/src/content/blog?ref=${gh.branch}`);
-    const mdFiles = (files || []).filter(f => f.name.endsWith('.md'));
-    $('postCount').textContent = `(${mdFiles.length})`;
-    if(!mdFiles.length){ $('postsList').innerHTML = '<div class="empty-list">No posts yet — write your first one above.</div>'; return; }
-
-    const posts = await Promise.all(mdFiles.map(async f => {
-      const file = await ghApi(`/contents/${f.path}?ref=${gh.branch}`);
-      const md = b64DecodeUnicode(file.content);
-      const { data } = parseFrontmatter(md);
-      return { ...f, data };
-    }));
-    posts.sort((a,b) => new Date(b.data.publishDate||0) - new Date(a.data.publishDate||0));
-
-    $('postsList').innerHTML = posts.map(p => `
-      <div class="post-row">
-        <div class="info">
-          <div class="title">${p.data.title || p.name}${String(p.data.draft)==='true' ? '<span class="draft-tag">Draft</span>' : ''}</div>
-          <div class="meta">${p.data.publishDate || ''} · ${p.data.author || ''}</div>
-        </div>
-        <button class="icon-btn" data-edit="${p.path}" title="Edit">✎</button>
-        <button class="icon-btn del" data-del="${p.path}" title="Delete">✕</button>
-      </div>
-    `).join('');
-
-    document.querySelectorAll('[data-edit]').forEach(btn => {
-      btn.addEventListener('click', async () => {
-        const path = btn.dataset.edit;
-        try{
-          const file = await ghApi(`/contents/${path}?ref=${gh.branch}`);
-          const md = b64DecodeUnicode(file.content);
-          const { data, content } = parseFrontmatter(md);
-          editingPath = path; editingSha = file.sha;
-          $('f_title').value = data.title || '';
-          $('f_excerpt').value = data.excerpt || '';
-          $('f_date').value = data.publishDate || '';
-          $('f_author').value = data.author || 'PropSpot Team';
-          $('f_tags').value = Array.isArray(data.tags) ? data.tags.join(', ') : '';
-          $('f_cover').value = data.coverImage || '';
-          $('f_draft').value = data.draft || 'false';
-          $('f_content').value = content.trim();
-          $('formTitle').textContent = 'Edit post';
-          $('saveBtn').textContent = 'Save changes';
-          $('cancelEditBtn').style.display = 'inline-block';
-          window.scrollTo({ top:0, behavior:'smooth' });
-        }catch(err){
-          alert('Could not load post: ' + err.message);
-        }
-      });
-    });
-    document.querySelectorAll('[data-del]').forEach(btn => {
-      btn.addEventListener('click', async () => {
-        if(!confirm('Delete this post permanently?')) return;
-        try{
-          const path = btn.dataset.del;
-          const file = await ghApi(`/contents/${path}?ref=${gh.branch}`);
-          await ghApi(`/contents/${path}`, {
-            method:'DELETE', headers:{'Content-Type':'application/json'},
-            body: JSON.stringify({ message:`Delete post: ${path}`, sha:file.sha, branch:gh.branch })
-          });
-          loadPosts();
-        }catch(err){
-          alert('Could not delete: ' + err.message);
-        }
-      });
-    });
-  }catch(err){
-    $('postsList').innerHTML = `<div class="empty-list">Could not load posts: ${err.message}</div>`;
-  }
-}
-
-// Reconnect automatically if we have saved credentials
 const saved = localStorage.getItem('propspot_cms_gh');
 if(saved){
   try{
@@ -354,6 +330,489 @@ if(saved){
     showApp();
   }catch(e){}
 }
+
+// ---------- Tabs ----------
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+    btn.classList.add('active');
+    $('tab-' + btn.dataset.tab).classList.add('active');
+    if(btn.dataset.tab === 'images') loadImages();
+  });
+});
+
+// ---------- Load lists ----------
+async function withParsedData(files){
+  return Promise.all(files.map(async f => {
+    try{
+      const { content, sha } = await getFile(f.path);
+      const { data } = parseFrontmatter(content);
+      return { ...f, data, sha };
+    }catch(e){ return { ...f, data:{}, sha:null }; }
+  }));
+}
+function isScheduled(data){
+  const draft = String(data.draft) === 'true';
+  const future = data.publishDate && new Date(data.publishDate) > new Date();
+  return draft || future;
+}
+
+async function loadPosts(){
+  const el = $('postsList');
+  el.innerHTML = '<p class="empty-list">Loading…</p>';
+  const files = (await listDir('src/content/blog')).filter(f => f.name && f.name.endsWith('.md'));
+  if(!files.length){ el.innerHTML = '<p class="empty-list">No posts yet.</p>'; return; }
+  const withData = await withParsedData(files);
+  const published = withData.filter(f => !isScheduled(f.data));
+  published.sort((a,b) => new Date(b.data.publishDate||0) - new Date(a.data.publishDate||0));
+  renderList(el, published, 'posts', false);
+}
+async function loadScheduled(){
+  const el = $('scheduledList');
+  el.innerHTML = '<p class="empty-list">Loading…</p>';
+  const files = (await listDir('src/content/blog')).filter(f => f.name && f.name.endsWith('.md'));
+  if(!files.length){ el.innerHTML = '<p class="empty-list">Nothing scheduled.</p>'; return; }
+  const withData = await withParsedData(files);
+  const scheduled = withData.filter(f => isScheduled(f.data));
+  scheduled.sort((a,b) => new Date(a.data.publishDate||'9999-12-31') - new Date(b.data.publishDate||'9999-12-31'));
+  renderList(el, scheduled, 'scheduled', true);
+}
+function renderList(el, items, source, showScheduledPill){
+  if(!items.length){ el.innerHTML = `<p class="empty-list">${source==='posts'?'No published posts.':'Nothing scheduled.'}</p>`; return; }
+  el.innerHTML = '';
+  items.forEach(f => {
+    const row = document.createElement('div');
+    row.className = 'post-row';
+    const dateLabel = f.data.publishDate || '—';
+    row.innerHTML = `
+      <div class="info">
+        <div class="title">${f.data.title || f.name}${showScheduledPill ? '<span class="pill scheduled">'+(String(f.data.draft)==='true' ? 'Draft' : 'Scheduled')+'</span>' : ''}</div>
+        <div class="meta">${dateLabel} · ${f.data.author || ''}</div>
+      </div>
+      <button class="icon-btn del" data-del="${f.path}" data-sha="${f.sha}" title="Delete">✕</button>
+    `;
+    row.addEventListener('click', (e) => { if(e.target.closest('[data-del]')) return; openEditor(f.path, source); });
+    row.querySelector('[data-del]').addEventListener('click', async (e) => {
+      e.stopPropagation();
+      if(!confirm(`Delete "${f.data.title || f.name}"? This cannot be undone.`)) return;
+      try{
+        await deleteFile(f.path, f.sha, `Delete post: ${f.path}`);
+        toast('Post deleted.');
+        source === 'posts' ? loadPosts() : loadScheduled();
+      }catch(err){ toast('Delete failed: ' + err.message, true); }
+    });
+    el.appendChild(row);
+  });
+}
+$('refreshPostsBtn').addEventListener('click', loadPosts);
+$('refreshScheduledBtn').addEventListener('click', loadScheduled);
+
+// ---------- Formatting toolbar (Markdown) ----------
+const FMT_TOOLBAR_HTML = `
+  <div class="fmt-toolbar">
+    <button type="button" class="fmt-btn" data-fmt="bold">Bold</button>
+    <button type="button" class="fmt-btn" data-fmt="italic">Italic</button>
+    <button type="button" class="fmt-btn" data-fmt="h2">Heading</button>
+    <button type="button" class="fmt-btn" data-fmt="h3">Subheading</button>
+    <button type="button" class="fmt-btn" data-fmt="ul">Bullet list</button>
+    <button type="button" class="fmt-btn" data-fmt="ol">Numbered list</button>
+    <button type="button" class="fmt-btn" data-fmt="link">Link</button>
+    <button type="button" class="fmt-btn" data-fmt="tip">Tip box</button>
+    <button type="button" class="fmt-btn" data-fmt="warn">Warning box</button>
+    <button type="button" class="fmt-btn" data-fmt="table">Table</button>
+    <button type="button" class="fmt-btn" data-fmt="image">Image</button>
+  </div>
+  <p class="hint">Select text first, then tap a button to wrap it — or tap with nothing selected to insert a starter block at your cursor.</p>
+`;
+function wireFormatToolbar(){
+  document.querySelectorAll('.fmt-btn').forEach(btn => btn.addEventListener('click', () => applyFormat(btn.dataset.fmt)));
+}
+function applyFormat(kind){
+  const ta = $('fld_body');
+  const start = ta.selectionStart, end = ta.selectionEnd;
+  const selected = ta.value.slice(start, end);
+  let insertText = '';
+  switch(kind){
+    case 'bold': insertText = `**${selected || 'bold text'}**`; break;
+    case 'italic': insertText = `*${selected || 'italic text'}*`; break;
+    case 'h2': insertText = `\n\n## ${selected || 'Section heading'}\n\n`; break;
+    case 'h3': insertText = `\n\n### ${selected || 'Subheading'}\n\n`; break;
+    case 'ul': insertText = selected
+      ? `\n\n${selected.split('\n').filter(Boolean).map(l=>`- ${l}`).join('\n')}\n\n`
+      : `\n\n- First point\n- Second point\n\n`;
+      break;
+    case 'ol': insertText = selected
+      ? `\n\n${selected.split('\n').filter(Boolean).map((l,i)=>`${i+1}. ${l}`).join('\n')}\n\n`
+      : `\n\n1. First step\n2. Second step\n\n`;
+      break;
+    case 'link': {
+      const url = prompt('Link URL:', 'https://');
+      if(!url) return;
+      insertText = `[${selected || 'link text'}](${url})`;
+      break;
+    }
+    case 'tip':
+      insertText = `\n\n<div class="callout tip">\n💡 <strong>Tip:</strong> ${selected || 'Your tip text here.'}\n</div>\n\n`;
+      break;
+    case 'warn':
+      insertText = `\n\n<div class="callout warn">\n⚠️ <strong>Watch out:</strong> ${selected || 'Your warning text here.'}\n</div>\n\n`;
+      break;
+    case 'table':
+      insertText = `\n\n| Column 1 | Column 2 |\n| --- | --- |\n| Row 1 | Data |\n| Row 2 | Data |\n\n`;
+      break;
+    case 'image':
+      insertText = `\n\n![Describe the image](/images/your-image.jpg)\n\n`;
+      break;
+  }
+  ta.value = ta.value.slice(0, start) + insertText + ta.value.slice(end);
+  ta.focus();
+  const cursorPos = start + insertText.length;
+  ta.setSelectionRange(cursorPos, cursorPos);
+}
+
+// ---------- Editor (shared: posts + scheduled, edit + create) ----------
+let currentPath = null, currentSha = null, currentSource = null, isNewPost = false;
+
+function escapeHtml(str){ return (str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function escapeAttr(str){ return (str||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;'); }
+
+function editorFormHtml(opts){
+  const tags = Array.isArray(opts.data.tags) ? opts.data.tags.join(', ') : (opts.data.tags||'');
+  return `
+    <span class="back-link" id="backLink_${opts.source}">&larr; Back to list</span>
+    <div class="section">
+      <h2>${opts.headerLabel}</h2>
+      <div class="field"><label>Title</label><input id="fld_title" value="${escapeAttr(opts.data.title||'')}"></div>
+      <div class="field"><label>Excerpt</label><textarea id="fld_excerpt" rows="2">${escapeHtml(opts.data.excerpt||'')}</textarea></div>
+      <div class="two-col">
+        <div class="field"><label>Publish date</label><input id="fld_date" type="date" value="${escapeAttr(opts.data.publishDate||'')}"></div>
+        <div class="field"><label>Author</label><input id="fld_author" value="${escapeAttr(opts.data.author||'PropSpot Team')}"></div>
+      </div>
+      <div class="two-col">
+        <div class="field"><label>Tags (comma-separated)</label><input id="fld_tags" value="${escapeAttr(tags)}"></div>
+        <div class="field"><label>Status</label>
+          <select id="fld_draft">
+            <option value="false" ${String(opts.data.draft)!=='true'?'selected':''}>Published</option>
+            <option value="true" ${String(opts.data.draft)==='true'?'selected':''}>Draft</option>
+          </select>
+        </div>
+      </div>
+      <div class="field"><label>Cover image URL</label><input id="fld_cover" value="${escapeAttr(opts.data.coverImage||'')}"></div>
+      <div class="field">
+        <label>Content (Markdown)</label>
+        ${FMT_TOOLBAR_HTML}
+        <textarea id="fld_body" rows="16">${escapeHtml(opts.body||'')}</textarea>
+      </div>
+      <div class="btn-row">
+        <button class="btn-primary" id="saveBtn">${opts.isNew ? 'Publish post' : 'Save changes'}</button>
+        <button class="btn-secondary" id="previewBtn">Preview</button>
+        <button class="btn-secondary" id="cancelBtn">Cancel</button>
+        ${opts.isNew ? '' : '<button class="btn-danger" id="deleteBtn">Delete post</button>'}
+      </div>
+      <p class="hint">Tip: in Preview, tap any paragraph or heading to jump straight to it below.</p>
+      <p class="status-msg" id="editorStatus"></p>
+    </div>
+  `;
+}
+
+async function openEditor(path, source){
+  currentPath = path; currentSource = source; isNewPost = false;
+  const viewId = source === 'posts' ? 'postEditorView' : 'scheduledEditorView';
+  const listViewId = source === 'posts' ? 'postsListView' : 'scheduledListView';
+  const editorView = $(viewId);
+  $(listViewId).style.display = 'none';
+  editorView.style.display = 'block';
+  editorView.innerHTML = '<p class="empty-list">Loading…</p>';
+  try{
+    const { content, sha } = await getFile(path);
+    currentSha = sha;
+    const { data, body } = parseFrontmatter(content);
+    editorView.innerHTML = editorFormHtml({ source, headerLabel: path.split('/').pop(), data, body: body.trim(), isNew:false });
+    wireEditorButtons(source);
+  }catch(e){
+    editorView.innerHTML = `<p class="empty-list">Error loading file: ${e.message}</p><span class="back-link" id="backLink_err">&larr; Back to list</span>`;
+    $('backLink_err').addEventListener('click', () => closeEditor(source));
+  }
+}
+function openNewEditor(source, prefill){
+  currentPath = null; currentSha = null; currentSource = source; isNewPost = true;
+  const viewId = source === 'posts' ? 'postEditorView' : 'scheduledEditorView';
+  const listViewId = source === 'posts' ? 'postsListView' : 'scheduledListView';
+  const editorView = $(viewId);
+  $(listViewId).style.display = 'none';
+  editorView.style.display = 'block';
+  const defaultDate = source === 'posts' ? new Date().toISOString().slice(0,10) : '';
+  const data = prefill ? prefill.data : { title:'', excerpt:'', publishDate: defaultDate, author:'PropSpot Team', tags:[], draft: source!=='posts' };
+  if(!data.publishDate) data.publishDate = defaultDate;
+  const body = prefill ? prefill.body : '';
+  editorView.innerHTML = editorFormHtml({ source, headerLabel: prefill ? 'New post (from uploaded file)' : (source==='posts'?'New post':'New scheduled post'), data, body, isNew:true });
+  wireEditorButtons(source);
+  if(prefill) toast('File loaded — review the fields, then publish.');
+}
+function wireEditorButtons(source){
+  $(`backLink_${source}`).addEventListener('click', () => closeEditor(source));
+  $('cancelBtn').addEventListener('click', () => closeEditor(source));
+  $('saveBtn').addEventListener('click', saveEditor);
+  $('previewBtn').addEventListener('click', showPreview);
+  wireFormatToolbar();
+  const delBtn = $('deleteBtn');
+  if(delBtn) delBtn.addEventListener('click', deleteCurrentPost);
+}
+function closeEditor(source){
+  const viewId = source === 'posts' ? 'postEditorView' : 'scheduledEditorView';
+  const listViewId = source === 'posts' ? 'postsListView' : 'scheduledListView';
+  $(viewId).style.display = 'none';
+  $(listViewId).style.display = 'block';
+}
+$('newPostBtn').addEventListener('click', () => openNewEditor('posts'));
+$('newScheduledBtn').addEventListener('click', () => openNewEditor('scheduled'));
+
+async function saveEditor(){
+  const statusEl = $('editorStatus');
+  const saveBtn = $('saveBtn');
+  saveBtn.disabled = true;
+  statusEl.textContent = 'Saving…'; statusEl.className = 'status-msg';
+
+  const fields = {
+    title: $('fld_title').value.trim(),
+    excerpt: $('fld_excerpt').value.trim(),
+    publishDate: $('fld_date').value,
+    author: $('fld_author').value.trim() || 'PropSpot Team',
+    tags: $('fld_tags').value.split(',').map(t=>t.trim()).filter(Boolean),
+    coverImage: $('fld_cover').value.trim(),
+    draft: $('fld_draft').value === 'true',
+  };
+  const body = $('fld_body').value;
+
+  if(!fields.title || !fields.excerpt || !fields.publishDate || !body.trim()){
+    statusEl.textContent = 'Please fill in title, excerpt, publish date, and content.'; statusEl.className = 'status-msg err';
+    saveBtn.disabled = false; return;
+  }
+
+  try{
+    let targetPath = currentPath;
+    if(isNewPost){
+      const slug = slugify(fields.title);
+      targetPath = `src/content/blog/${slug}.md`;
+      const check = await ghRaw(`/contents/${targetPath}?ref=${gh.branch}`);
+      if(check.ok){
+        statusEl.textContent = `A post already exists at that slug. Try a different title.`; statusEl.className = 'status-msg err';
+        saveBtn.disabled = false; return;
+      }
+    }
+    const markdown = buildFrontmatter(fields) + '\n' + body;
+    const result = await putFile(targetPath, markdown, isNewPost ? null : currentSha, isNewPost ? `New post: ${fields.title}` : `Update post: ${fields.title}`);
+    currentPath = targetPath; currentSha = result.content.sha; isNewPost = false;
+    statusEl.textContent = 'Saved. Site will rebuild shortly.'; statusEl.className = 'status-msg ok';
+    toast('Post saved.');
+    loadPosts(); loadScheduled();
+  }catch(err){
+    statusEl.textContent = 'Save failed: ' + err.message; statusEl.className = 'status-msg err';
+  }finally{
+    saveBtn.disabled = false;
+  }
+}
+async function deleteCurrentPost(){
+  const title = $('fld_title').value.trim() || currentPath;
+  if(!confirm(`Delete "${title}"? This cannot be undone.`)) return;
+  const statusEl = $('editorStatus');
+  try{
+    await deleteFile(currentPath, currentSha, `Delete post: ${currentPath}`);
+    toast('Post deleted.');
+    closeEditor(currentSource);
+    loadPosts(); loadScheduled();
+  }catch(err){
+    statusEl.textContent = 'Delete failed: ' + err.message; statusEl.className = 'status-msg err';
+  }
+}
+
+// ---------- Upload .md file to prefill new post ----------
+function wireUploadButton(buttonId, fileInputId, source){
+  $(buttonId).addEventListener('click', () => $(fileInputId).click());
+  $(fileInputId).addEventListener('change', () => {
+    const file = $(fileInputId).files[0];
+    if(!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      const { data, body } = parseFrontmatter(reader.result);
+      openNewEditor(source, { data, body: body.trim() });
+    };
+    reader.onerror = () => toast('Could not read that file.', true);
+    reader.readAsText(file);
+    $(fileInputId).value = '';
+  });
+}
+wireUploadButton('uploadPostBtn', 'uploadPostFile', 'posts');
+wireUploadButton('uploadScheduledBtn', 'uploadScheduledFile', 'scheduled');
+
+// ---------- Images ----------
+$('uploadImageBtn').addEventListener('click', async () => {
+  const fileInput = $('imageFileInput');
+  const nameInput = $('imageNameInput');
+  const statusEl = $('uploadStatus');
+  const resultBox = $('uploadResult');
+  resultBox.style.display = 'none';
+  const file = fileInput.files[0];
+  if(!file){ statusEl.textContent='Choose a file first.'; statusEl.className='status-msg err'; return; }
+  let filename = nameInput.value.trim();
+  if(!filename){ statusEl.textContent='Enter a file name.'; statusEl.className='status-msg err'; return; }
+  if(!/\.(jpg|jpeg|png|webp|gif|svg)$/i.test(filename)){
+    const ext = file.name.split('.').pop();
+    filename += '.' + ext;
+  }
+  statusEl.textContent = 'Uploading…'; statusEl.className = 'status-msg';
+  try{
+    const base64 = await fileToBase64(file);
+    await putBinaryFile(`public/images/${filename}`, base64, `Upload image ${filename}`);
+    statusEl.textContent = 'Uploaded.'; statusEl.className = 'status-msg ok';
+    const snippet = `![Describe the image](/images/${filename})`;
+    $('snippetOutput').textContent = snippet;
+    resultBox.style.display = 'block';
+    loadImages();
+  }catch(err){
+    statusEl.textContent = 'Upload failed: ' + err.message; statusEl.className = 'status-msg err';
+  }
+});
+$('copySnippetBtn').addEventListener('click', () => {
+  navigator.clipboard.writeText($('snippetOutput').textContent).then(() => toast('Snippet copied.'));
+});
+async function loadImages(){
+  const grid = $('imageGrid');
+  grid.innerHTML = '<p class="empty-list">Loading…</p>';
+  const files = await listDir('public/images');
+  if(!Array.isArray(files) || !files.length){ grid.innerHTML = '<p class="empty-list">No images uploaded yet.</p>'; return; }
+  grid.innerHTML = '';
+  files.filter(f => f.type === 'file').forEach(f => {
+    const div = document.createElement('div');
+    div.className = 'thumb'; div.title = f.name;
+    const img = document.createElement('img'); img.src = f.download_url; img.loading = 'lazy';
+    div.appendChild(img);
+    div.addEventListener('click', () => {
+      const snippet = `![Describe the image](/images/${f.name})`;
+      navigator.clipboard.writeText(snippet).then(() => toast('Snippet copied for ' + f.name));
+    });
+    grid.appendChild(div);
+  });
+}
+$('refreshImagesBtn').addEventListener('click', loadImages);
+
+// ---------- Preview (lightweight Markdown → HTML, tap-to-jump) ----------
+let cachedSiteCss = null;
+async function getSiteCss(){
+  if(cachedSiteCss) return cachedSiteCss;
+  try{ const { content } = await getFile('src/styles/global.css'); cachedSiteCss = content; }
+  catch(e){ cachedSiteCss = ''; }
+  return cachedSiteCss;
+}
+
+function escapeForAttr(str){ return str.replace(/&/g,'&amp;').replace(/"/g,'&quot;'); }
+function unescapeFromAttr(str){ return str.replace(/&quot;/g,'"').replace(/&amp;/g,'&'); }
+function inlineMd(text){
+  return escapeHtml(text)
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g, '<em>$1</em>')
+    .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2">$1</a>');
+}
+// Splits raw markdown body into blocks, rendering each with a data-src-anchor
+// (a short verbatim slice of the raw source) so preview clicks can jump back.
+function renderMarkdownWithAnchors(body){
+  const blocks = body.split(/\n\s*\n/);
+  let out = '';
+  let cursor = 0;
+  blocks.forEach(rawBlock => {
+    const idx = body.indexOf(rawBlock, cursor);
+    cursor = idx + rawBlock.length;
+    const anchor = escapeForAttr(rawBlock.slice(0, 70));
+    const block = rawBlock.trim();
+    if(!block) return;
+    if(block.startsWith('<div') || block.startsWith('<table')){
+      out += `<div data-src-anchor="${anchor}">${block}</div>`;
+    } else if(block.startsWith('### ')){
+      out += `<h3 data-src-anchor="${anchor}">${inlineMd(block.slice(4))}</h3>`;
+    } else if(block.startsWith('## ')){
+      out += `<h2 data-src-anchor="${anchor}">${inlineMd(block.slice(3))}</h2>`;
+    } else if(block.split('\n').every(l => /^-\s/.test(l.trim()))){
+      const items = block.split('\n').map(l => `<li data-src-anchor="${escapeForAttr(l.trim().slice(0,70))}">${inlineMd(l.trim().slice(2))}</li>`).join('');
+      out += `<ul>${items}</ul>`;
+    } else if(block.split('\n').every(l => /^\d+\.\s/.test(l.trim()))){
+      const items = block.split('\n').map(l => `<li data-src-anchor="${escapeForAttr(l.trim().slice(0,70))}">${inlineMd(l.trim().replace(/^\d+\.\s/,''))}</li>`).join('');
+      out += `<ol>${items}</ol>`;
+    } else if(block.startsWith('|')){
+      const rows = block.split('\n').filter(l => !/^\|\s*-+\s*\|/.test(l));
+      const trs = rows.map((r,i) => {
+        const cells = r.split('|').map(c=>c.trim()).filter(Boolean);
+        const tag = i===0 ? 'th' : 'td';
+        return `<tr>${cells.map(c=>`<${tag}>${inlineMd(c)}</${tag}>`).join('')}</tr>`;
+      }).join('');
+      out += `<table data-src-anchor="${anchor}"><tbody>${trs}</tbody></table>`;
+    } else {
+      out += `<p data-src-anchor="${anchor}">${inlineMd(block)}</p>`;
+    }
+  });
+  return out;
+}
+
+async function showPreview(){
+  const overlay = $('previewOverlay');
+  const frame = $('previewFrame');
+  overlay.classList.add('open');
+  frame.srcdoc = '<body style="font-family:sans-serif;padding:40px;color:#666;">Loading preview…</body>';
+  const css = await getSiteCss();
+  const title = $('fld_title').value.trim() || 'Untitled';
+  const excerpt = $('fld_excerpt').value.trim();
+  const cover = $('fld_cover').value.trim();
+  const body = $('fld_body').value;
+  const renderedBody = renderMarkdownWithAnchors(body);
+
+  const html = `<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>${css}</style>
+<style>[data-src-anchor]{cursor:pointer;} [data-src-anchor]:hover{outline:2px dashed hsl(42 88% 58%);outline-offset:2px;background:rgba(201,146,46,0.08);}</style>
+</head><body>
+<header class="site-header"><div class="header-row">
+  <span class="brand"><span class="brand-mark">P</span><span><span class="brand-name">PropSpot Journal</span></span></span>
+</div></header>
+<main class="wrap">
+  <header class="post-header">
+    <h1 class="page-title">${escapeHtml(title)}</h1>
+    <p class="page-lede">${escapeHtml(excerpt)}</p>
+    ${cover ? `<div class="post-cover"><img src="${escapeAttr(cover)}" alt=""></div>` : ''}
+  </header>
+  <article class="prose">${renderedBody}</article>
+</main>
+<script>
+document.addEventListener('click', function(e){
+  var el = e.target.closest('[data-src-anchor]');
+  if(!el) return;
+  var anchor = el.getAttribute('data-src-anchor');
+  if(!anchor) return;
+  window.parent.postMessage({ propspotJump:true, anchor:anchor }, '*');
+});
+<\/script>
+</body></html>`;
+  frame.srcdoc = html;
+}
+function scrollTextareaToPos(ta, pos){
+  const before = ta.value.slice(0, pos);
+  const lineNum = (before.match(/\n/g)||[]).length;
+  const cs = window.getComputedStyle(ta);
+  const lineHeight = parseFloat(cs.lineHeight) || (parseFloat(cs.fontSize) * 1.4);
+  ta.scrollTop = Math.max(0, lineNum * lineHeight - ta.clientHeight / 3);
+}
+window.addEventListener('message', (e) => {
+  if(!e.data || !e.data.propspotJump) return;
+  const ta = $('fld_body');
+  if(!ta) return;
+  const anchor = unescapeFromAttr(e.data.anchor);
+  const idx = ta.value.indexOf(anchor);
+  if(idx === -1) return;
+  $('previewOverlay').classList.remove('open');
+  ta.focus();
+  ta.setSelectionRange(idx, Math.min(idx + anchor.length, ta.value.length));
+  scrollTextareaToPos(ta, idx);
+});
+$('closePreviewBtn').addEventListener('click', () => $('previewOverlay').classList.remove('open'));
 </script>
 </body>
 </html>
